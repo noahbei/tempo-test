@@ -1,3 +1,7 @@
+* {
+    touch-action: none;
+}
+
 body {
     margin: 0px;
     background-color: #6554AF;
@@ -42,7 +46,7 @@ body {
 .slider {
     -webkit-appearance: none;
     appearance: none;
-    background: #bfbbd1;
+    background: #f1f0f4;
     border-radius: 20px;
     height: 8px;
     outline: none;
