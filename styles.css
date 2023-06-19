@@ -40,7 +40,29 @@ body {
 }
 
 .slider {
-    
+    -webkit-appearance: none;
+    appearance: none;
+    background: #bfbbd1;
+    border-radius: 20px;
+    height: 8px;
+    outline: none;
+}
+
+.slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    background: #C4B0FF;
+    cursor: pointer;
+    border-radius: 50%;
+}
+
+.slider::-moz-range-thumb {
+    width: 20px;
+    height: 20px;
+    background: #C4B0FF;
+    cursor: pointer;
 }
 
 #tempo-slider {
