@@ -29,6 +29,8 @@ body {
     margin: auto;
 }
 
+/* media for control grid here */
+
 .tempo-container {
     
 }
@@ -57,3 +59,31 @@ body {
 
     grid-row: span 2;
 }
+
+@media (max-width: 830px) {
+    #title {
+        margin-top: 20px;
+        margin-bottom: 20px;
+        font-size: 70px;
+    }
+
+    .controls-grid {
+        grid-template-columns: 1fr;
+        width: 100%;
+    }
+
+    #play {
+        margin: auto;
+    }
+
+    
+}
+
+/* remove margin for h2 when title goes on two lines */
+@media (max-width: 608px) {
+    h2 {
+        margin: 5px 0px;
+    }
+}
+
+
