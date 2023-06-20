@@ -48,3 +48,7 @@ $("#play").on("click", () => {
 
 $("#volume-slider").change(adjustVol)
 $("#tempo-slider").change(adjustTempo)
+
+//when the user clicks (after the game has started registering all of their clicks after a counter)
+//add their time intervals to an array.
+//compare this array and the intervals to the bpm/tempo
