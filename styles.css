@@ -22,7 +22,12 @@ body {
     color: #2B2730;
     color: rgb(31, 28, 34); /* darker color */
     /* temp for vertical spacing */
-    margin-bottom: 100px;
+    margin-bottom: 0px;
+}
+
+#instructions {
+    font-size: 25px;
+    margin: 50px 0px;
 }
 
 .controls-grid {
@@ -92,8 +97,12 @@ body {
 @media (max-width: 830px) {
     #title {
         margin-top: 20px;
-        margin-bottom: 20px;
         font-size: 70px;
+    }
+
+    #instructions {
+        margin: 20px 0px;
+        font-size: 20px;
     }
 
     .controls-grid {
