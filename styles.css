@@ -85,6 +85,7 @@ body {
     cursor: pointer;
 
     grid-row: span 2;
+    position: relative;
 }
 
 @media (max-width: 830px) {
@@ -113,4 +114,21 @@ body {
     }
 }
 
+.bi {
+    position: absolute;
+    color: #2B2730;
+}
 
+.bi-play-fill {
+    left: 25px;
+    top: 6px
+}
+
+.bi-music-note-beamed {
+    left: 33px;
+    top: 35px
+}
+
+.hidden {
+    display: none;
+}

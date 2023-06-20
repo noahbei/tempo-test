@@ -21,7 +21,7 @@ The rate of playback. 0.5 to 4.0, with 1.0 being normal speed.
 */
 
 var sound = new Howl({
-    src: ['fart.mp3'],
+    src: ['audio/fart.mp3'],
     loop: true
 });
 
