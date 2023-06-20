@@ -1,11 +1,13 @@
 //tempo in bpm, between 50 - 250
 let tempo = $("#tempo-slider")[0].value;
-
 //vol between 0 - 100
 let vol = $("#volume-slider")[0].value;
+let timesClicked = 0;
+
+
 
 function adjustVol() {
-    vol = vol = $("#volume-slider")[0].value;
+    vol = $("#volume-slider")[0].value;
     Howler.volume(vol * .01);
 }
 
@@ -20,7 +22,28 @@ var sound = new Howl({
 });
 
 $("#play").on("click", () => {
-    let sound1 = sound.play();
+    //show play button
+    //maybe toggle and maybe make clicked a bool
+    if (timesClicked === 0) {
+        $(".bi-play-fill").removeClass("hidden");
+        $(".bi-music-note-beamed").addClass("hidden");
+        //sound start
+        sound.play();
+    }
+    else if (timesClicked === 1) {
+        // call function(s) to start the game
+        // animate the control grid going away
+        // animate title going to the top of the screen
+    }
+    else {
+        // maybe reset the counter or something
+        // or reset the play button toggle thing
+    }
+    
+    
+    
+    timesClicked = (timesClicked + 1) % 3;
+    console.log(timesClicked)
 })
 
 $("#volume-slider").change(adjustVol)

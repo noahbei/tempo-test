@@ -20,6 +20,7 @@ body {
 #title {
     font-size: 90px;
     color: #2B2730;
+    color: rgb(31, 28, 34); /* darker color */
     /* temp for vertical spacing */
     margin-bottom: 100px;
 }
@@ -102,6 +103,7 @@ body {
 
     #play {
         margin: auto;
+        margin-top: 40px;
     }
 
     
