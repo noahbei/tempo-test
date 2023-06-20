@@ -68,11 +68,19 @@ body {
     border-radius: 50%;
 }
 
+.slider::-webkit-slider-thumb:hover {
+    background-color: #ad95f5;
+}
+
 .slider::-moz-range-thumb {
     width: 20px;
     height: 20px;
     background: #C4B0FF;
     cursor: pointer;
+}
+
+.slider::-moz-range-thumb:hover {
+    background-color: #ad95f5;
 }
 
 #tempo-slider {
@@ -92,6 +100,10 @@ body {
 
     grid-row: span 2;
     position: relative;
+}
+
+#play:hover {
+    background-color: #ad95f5;
 }
 
 @media (max-width: 830px) {
