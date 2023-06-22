@@ -31,6 +31,7 @@ $("#play").on("click", () => {
         sound.play();
     }
     else if (timesClicked === 1) {
+        clearStartPage()
         // call function(s) to start the game
         // animate the control grid going away
         // animate title going to the top of the screen
@@ -52,3 +53,8 @@ $("#tempo-slider").change(adjustTempo)
 //when the user clicks (after the game has started registering all of their clicks after a counter)
 //add their time intervals to an array.
 //compare this array and the intervals to the bpm/tempo
+
+function clearStartPage() {
+    $("#title").addClass("small-title")
+    $(".rest-container").fadeOut(350);
+}

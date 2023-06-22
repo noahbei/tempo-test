@@ -155,3 +155,16 @@ body {
 .hidden {
     display: none;
 }
+
+.small-title {
+    transition: all 0.5s ease;
+    margin-top: 20px;
+    font-size: 70px !important;
+}
+
+.disable-select {
+    -webkit-user-select: none;  
+    -moz-user-select: none;    
+    -ms-user-select: none;      
+    user-select: none;
+}
