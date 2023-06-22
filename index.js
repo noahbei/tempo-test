@@ -58,3 +58,71 @@ function clearStartPage() {
     $("#title").addClass("small-title")
     $(".rest-container").fadeOut(350);
 }
+
+function drawNote() {
+
+}
+
+//for testing
+clearStartPage();
+
+/* const numberOfInstances = 3;
+const positions = [
+  { x: 100, y: 100 },
+  { x: 200, y: 200 },
+  { x: 300, y: 300 },
+  // Add more positions as needed
+];
+
+for (let i = 0; i < numberOfInstances; i++) {
+  // Create a new SVG element
+  const $svgInstance = $('<img>');
+
+  // Load the SVG file
+  $.get('images/eighth-note.png', function(data) {
+    // Insert the SVG content into the new SVG element
+    $svgInstance.html(data);
+
+    // Set the position of the SVG instance
+    $svgInstance.attr('x', positions[i].x);
+    $svgInstance.attr('y', positions[i].y);
+
+    // Append the SVG instance to the document
+    $('body').append($svgInstance);
+  });
+} */
+
+
+
+const numberOfInstances = 3;
+const positions = [
+  { x: 100, y: 100 },
+  { x: 200, y: 200 },
+  { x: 300, y: 300 }
+  // Add more positions as needed
+];
+
+// Create a container element
+const $container = $('<div>').css("position", "relative");
+
+for (let i = 0; i < numberOfInstances; i++) {
+  // Create a new image element
+  const $image = $('<img>');
+
+  // Set the image source
+  $image.attr('src', 'images/eighth-note.png');
+  $image.attr('alt', 'music note');
+  $image.addClass("note-size note");
+
+  // Set the position of the image
+  $image.css({
+    left: positions[i].x + 'px',
+    top: positions[i].y + 'px'
+  });
+
+  // Append the image to the container
+  $container.append($image);
+}
+
+// Append the container to the document body
+$('body').append($container);
