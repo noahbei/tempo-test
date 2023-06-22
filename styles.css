@@ -168,3 +168,30 @@ body {
     -ms-user-select: none;      
     user-select: none;
 }
+
+/* definitely change this */
+.note-size {
+    width: 150px;
+}
+
+@media (max-width: 1000px) {
+    .note-size {
+        width: 120px;
+    }
+}
+
+@media (max-width: 600px) {
+    .note-size {
+        width: 100px;
+    }
+}
+
+@media (max-width: 400px) {
+    .note-size {
+        width: 75px;
+    }
+}
+
+.note {
+    position: relative;
+}
