@@ -99,6 +99,7 @@ function calcUserResults(timeSinceLastBeat, currentTime) {
     userResult.missPerc = (userResult.miss / tempo_ms) * 100;
     // scoreFactor cant go below 0
     let scoreFactor = Math.max(0, 1 - Math.abs(userResult.missPerc) / 20);
+
     userResult.score = Math.round(scoreFactor * maxPointsPerNote);
     return userResult;
 }
