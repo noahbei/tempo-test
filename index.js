@@ -1,10 +1,20 @@
 //tempo in bpm, between 50 - 250
 let tempo = $("#tempo-slider")[0].value;
+let tempo_ms = (60 / tempo) * 1000;
 //vol between 0 - 100
 let vol = $("#volume-slider")[0].value;
 let timesClicked = 0;
+let maxPointsPerNote = 50;
+let timeSinceLastBeat = 0;
+let userInputArr = [];
 
 
+let sound = new Howl({
+    src: ['audio/fart.mp3'],
+    loop: true
+});
+adjustTempo();
+adjustVol();
 
 function adjustVol() {
     vol = $("#volume-slider")[0].value;
@@ -13,13 +23,14 @@ function adjustVol() {
 
 function adjustTempo() {
     tempo = $("#tempo-slider")[0].value;
+    tempo_ms = (60 / tempo) * 1000;
     sound.rate(tempo / 99);
 }
 
-var sound = new Howl({
-    src: ['audio/fart.mp3'],
-    loop: true
-});
+//add event for chaning tempo and volume
+$("#volume-slider").change(adjustVol)
+$("#tempo-slider").change(adjustTempo)
+
 
 $("#play").on("click", () => {
     //show play button
@@ -47,55 +58,47 @@ $("#play").on("click", () => {
     console.log(timesClicked)
 })
 
-$("#volume-slider").change(adjustVol)
-$("#tempo-slider").change(adjustTempo)
+function clearStartPage() {
+    $("#title").addClass("small-title")
+    $(".rest-container").fadeOut(350);
+}
 
 //when the user clicks (after the game has started registering all of their clicks after a counter)
 //add their time intervals to an array.
 //compare this array and the intervals to the bpm/tempo
 
-function clearStartPage() {
-    $("#title").addClass("small-title")
-    $(".rest-container").fadeOut(350);
+// add event on click that will handle everything for the click.
+//add this when we go to game screen, remove when we are done
+$("body").off("click keydown").on("click keydown", handleClick)
+
+function handleClick() {
+    // if it is time for getting the user's input from the game from the game.
+    if (1) {
+        let currentTime = window.performance.now();
+        let userResult = calcUserResults(timeSinceLastBeat, currentTime);
+        userInputArr.push(userResult), (timeSinceLastBeat = currentTime);
+
+        console.log("userResult.score: " + userResult.score);
+        console.log("userResult.miss: " + userResult.miss);
+        console.log("userResult.missPerc: " + userResult.missPerc);
+        console.log("");
+
+        drawNote();
+    }
 }
 
 function drawNote() {
 
 }
 
-//for testing
-clearStartPage();
-
-const numberOfInstances = 4;
-const positions = [
-  { x: 100, y: 0   },
-  { x: 100, y: 100 },
-  { x: 200, y: 200 },
-  { x: 300, y: 300 }
-  // Add more positions as needed
-];
-
-// Create a container element
-const $container = $('<div>').css("position", "relative");
-
-for (let i = 0; i < numberOfInstances; i++) {
-  // Create a new image element
-  const $image = $('<img>');
-
-  // Set the image source
-  $image.attr('src', 'images/eighth-note.png');
-  $image.attr('alt', 'music note');
-  $image.addClass("note-size note");
-
-  // Set the position of the image
-  $image.css({
-    left: positions[i].x + 'px',
-    top: positions[i].y + 'px'
-  });
-
-  // Append the image to the container
-  $container.append($image);
+function calcUserResults(timeSinceLastBeat, currentTime) {
+    // make userResult object to hold beat data
+    let userResult = {};
+    userResult.duration = currentTime - timeSinceLastBeat;
+    userResult.miss = userResult.duration - tempo_ms;
+    userResult.missPerc = (userResult.miss / tempo_ms) * 100;
+    // scoreFactor cant go below 0
+    let scoreFactor = Math.max(0, 1 - Math.abs(userResult.missPerc) / 20);
+    userResult.score = Math.round(scoreFactor * maxPointsPerNote);
+    return userResult;
 }
-
-// Append the container to the document body
-$('body').append($container);
