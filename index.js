@@ -66,7 +66,6 @@ function drawNote() {
 //for testing
 clearStartPage();
 
-
 const numberOfInstances = 4;
 const positions = [
   { x: 100, y: 0   },
