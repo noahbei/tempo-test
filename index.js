@@ -4,9 +4,10 @@ let tempo_ms = (60 / tempo) * 1000;
 //vol between 0 - 100
 let vol = $("#volume-slider")[0].value;
 let playMusicClicked = false;
-let maxPointsPerNote = 50;
+const maxPointsPerNote = 50;
 let timeSinceLastBeat = 0;
 let userInputArr = [];
+let numClicks = 0;
 
 
 let sound = new Howl({
@@ -40,20 +41,23 @@ $("#play").on("click", () => {
         $(".bi-play-fill").removeClass("hidden");
         //sound start
         //maybe have function that does everytihng for reset here
-        sound.play();
+        let sound1 = sound.play();
         playMusicClicked = true;
     }
     else {
         clearStartPage()
+        $("body").append("<h2 id='count' class='disable-select'></h2>");
+        
+        // add event on click that will handle everything for the click.s
+        //add this when we go to game screen, remove when we are done
+        $("body").on("click keydown", handleClick);
+
+
+
         // call function(s) to start the game
         // animate the control grid going away
         // animate title going to the top of the screen
     }
-    
-    
-    
-    timesClicked = (timesClicked + 1) % 3;
-    console.log(timesClicked)
 })
 
 function clearStartPage() {
@@ -61,28 +65,37 @@ function clearStartPage() {
     $(".rest-container").fadeOut(350);
 }
 
-//when the user clicks (after the game has started registering all of their clicks after a counter)
-//add their time intervals to an array.
-//compare this array and the intervals to the bpm/tempo
-
-// add event on click that will handle everything for the click.
-//add this when we go to game screen, remove when we are done
-$("body").off("click keydown").on("click keydown", handleClick)
-
 function handleClick() {
+    numClicks++;
     // if it is time for getting the user's input from the game from the game.
-    if (1) {
-        let currentTime = window.performance.now();
-        let userResult = calcUserResults(timeSinceLastBeat, currentTime);
-        userInputArr.push(userResult), (timeSinceLastBeat = currentTime);
 
-        console.log("userResult.score: " + userResult.score);
-        console.log("userResult.miss: " + userResult.miss);
-        console.log("userResult.missPerc: " + userResult.missPerc);
-        console.log("");
+    let currentTime = window.performance.now();
+    let userResult = calcUserResults(timeSinceLastBeat, currentTime);
+    userInputArr.push(userResult);
+    timeSinceLastBeat = currentTime;
 
-        drawNote();
+    console.log(numClicks);
+    if (numClicks >= 4 && numClicks <= 8) {
+        $("#count").text(5 - numClicks + 4);
     }
+    else if (numClicks === 9) {
+        $("#count").fadeOut(200);
+    }
+    else if (numClicks >= 23 && numClicks <=27) {
+        $("#count").fadeIn(200);
+        $("#count").text(5 - numClicks + 23);
+    }
+    else if (numClicks === 28) {
+        $("#count").fadeOut(200);
+    }
+    /* //  score debug
+    console.log("userResult.score: " + userResult.score);
+    console.log("userResult.miss: " + userResult.miss);
+    console.log("userResult.missPerc: " + userResult.missPerc);
+    console.log("");
+        */
+
+    drawNote();
 }
 
 function drawNote() {
@@ -100,4 +113,16 @@ function calcUserResults(timeSinceLastBeat, currentTime) {
 
     userResult.score = Math.round(scoreFactor * maxPointsPerNote);
     return userResult;
+}
+
+function resetGame() {
+    // maybe need to delete deep for the userResult objects in array
+    userInputArr = [];
+    
+}
+
+// happens at the end of play screen
+function showResults() {
+    $("body").off("click keydown");
+    numClicks = 0; // or do this in reset game
 }

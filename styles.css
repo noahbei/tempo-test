@@ -6,6 +6,7 @@ body {
     margin: 0px;
     background-color: #6554AF;
     font-family: 'Lemon', cursive;
+    text-align: center;
     color: rgb(31, 28, 34);
     /* a little darker than the title */
     height: 100vh;
@@ -201,4 +202,5 @@ body {
 
 #count {
     font-size: 90px;
+    margin: 0px;
 }
