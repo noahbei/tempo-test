@@ -3,7 +3,7 @@ let tempo = $("#tempo-slider")[0].value;
 let tempo_ms = (60 / tempo) * 1000;
 //vol between 0 - 100
 let vol = $("#volume-slider")[0].value;
-let timesClicked = 0;
+let playMusicClicked = false;
 let maxPointsPerNote = 50;
 let timeSinceLastBeat = 0;
 let userInputArr = [];
@@ -35,21 +35,19 @@ $("#tempo-slider").change(adjustTempo)
 $("#play").on("click", () => {
     //show play button
     //maybe toggle and maybe make clicked a bool
-    if (timesClicked === 0) {
-        $(".bi-play-fill").removeClass("hidden");
+    if (!playMusicClicked) {
         $(".bi-music-note-beamed").addClass("hidden");
+        $(".bi-play-fill").removeClass("hidden");
         //sound start
+        //maybe have function that does everytihng for reset here
         sound.play();
+        playMusicClicked = true;
     }
-    else if (timesClicked === 1) {
+    else {
         clearStartPage()
         // call function(s) to start the game
         // animate the control grid going away
         // animate title going to the top of the screen
-    }
-    else {
-        // maybe reset the counter or something
-        // or reset the play button toggle thing
     }
     
     
