@@ -8,6 +8,8 @@ body {
     font-family: 'Lemon', cursive;
     color: rgb(31, 28, 34);
     /* a little darker than the title */
+    height: 100vh;
+    overflow: hidden;
 }
 
 .container {
@@ -194,4 +196,9 @@ body {
 
 .note {
     position: relative;
+}
+
+
+#count {
+    font-size: 90px;
 }
