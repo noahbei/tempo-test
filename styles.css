@@ -6,8 +6,11 @@ body {
     margin: 0px;
     background-color: #6554AF;
     font-family: 'Lemon', cursive;
+    text-align: center;
     color: rgb(31, 28, 34);
     /* a little darker than the title */
+    height: 100vh;
+    overflow: hidden;
 }
 
 .container {
@@ -20,8 +23,14 @@ body {
 #title {
     font-size: 90px;
     color: #2B2730;
+    color: rgb(31, 28, 34); /* darker color */
     /* temp for vertical spacing */
-    margin-bottom: 100px;
+    margin-bottom: 0px;
+}
+
+#instructions {
+    font-size: 25px;
+    margin: 50px 0px;
 }
 
 .controls-grid {
@@ -62,11 +71,19 @@ body {
     border-radius: 50%;
 }
 
+.slider::-webkit-slider-thumb:hover {
+    background-color: #ad95f5;
+}
+
 .slider::-moz-range-thumb {
     width: 20px;
     height: 20px;
     background: #C4B0FF;
     cursor: pointer;
+}
+
+.slider::-moz-range-thumb:hover {
+    background-color: #ad95f5;
 }
 
 #tempo-slider {
@@ -88,11 +105,19 @@ body {
     position: relative;
 }
 
+#play:hover {
+    background-color: #ad95f5;
+}
+
 @media (max-width: 830px) {
     #title {
         margin-top: 20px;
-        margin-bottom: 20px;
         font-size: 70px;
+    }
+
+    #instructions {
+        margin: 20px 0px;
+        font-size: 20px;
     }
 
     .controls-grid {
@@ -102,6 +127,7 @@ body {
 
     #play {
         margin: auto;
+        margin-top: 40px;
     }
 
     
@@ -131,4 +157,50 @@ body {
 
 .hidden {
     display: none;
+}
+
+.small-title {
+    transition: all 0.5s ease;
+    margin-top: 20px;
+    font-size: 70px !important;
+}
+
+.disable-select {
+    -webkit-user-select: none;  
+    -moz-user-select: none;    
+    -ms-user-select: none;      
+    user-select: none;
+}
+
+/* definitely change this */
+.note-size {
+    width: 150px;
+}
+
+@media (max-width: 1000px) {
+    .note-size {
+        width: 120px;
+    }
+}
+
+@media (max-width: 600px) {
+    .note-size {
+        width: 100px;
+    }
+}
+
+@media (max-width: 400px) {
+    .note-size {
+        width: 75px;
+    }
+}
+
+.note {
+    position: relative;
+}
+
+
+#count {
+    font-size: 90px;
+    margin: 0px;
 }
