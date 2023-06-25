@@ -19,7 +19,7 @@ adjustVol();
 
 function adjustVol() {
     vol = $("#volume-slider")[0].value;
-    Howler.volume(vol * .01);
+    sound.volume(vol * .01);
 }
 
 function adjustTempo() {
@@ -34,35 +34,23 @@ $("#tempo-slider").change(adjustTempo)
 
 
 $("#play").on("click", () => {
-    //show play button
-    //maybe toggle and maybe make clicked a bool
     if (!playMusicClicked) {
         $(".bi-music-note-beamed").addClass("hidden");
         $(".bi-play-fill").removeClass("hidden");
-        //sound start
-        //maybe have function that does everytihng for reset here
+
         let sound1 = sound.play();
         playMusicClicked = true;
     }
     else {
         clearStartPage()
         $("body").append("<h2 id='count' class='disable-select'></h2>");
-        
-        // add event on click that will handle everything for the click.s
-        //add this when we go to game screen, remove when we are done
         $("body").on("click keydown", handleClick);
-
-
-
-        // call function(s) to start the game
-        // animate the control grid going away
-        // animate title going to the top of the screen
     }
 })
 
 function clearStartPage() {
     $("#title").addClass("small-title")
-    $(".rest-container").fadeOut(350);
+    $("#start-container").fadeOut(350);
 }
 
 function handleClick() {
@@ -71,7 +59,8 @@ function handleClick() {
 
     let currentTime = window.performance.now();
     let userResult = calcUserResults(timeSinceLastBeat, currentTime);
-    userInputArr.push(userResult);
+    if (numClicks >= 9 && numClicks <= 28)
+        userInputArr.push(userResult);
     timeSinceLastBeat = currentTime;
 
     console.log(numClicks);
@@ -80,6 +69,7 @@ function handleClick() {
     }
     else if (numClicks === 9) {
         $("#count").fadeOut(200);
+        sound.fade(vol * .01, 0, 1000);
     }
     else if (numClicks >= 23 && numClicks <=27) {
         $("#count").fadeIn(200);
@@ -87,13 +77,14 @@ function handleClick() {
     }
     else if (numClicks === 28) {
         $("#count").fadeOut(200);
+        showResults();
     }
-    /* //  score debug
+    /*  //  score debug
     console.log("userResult.score: " + userResult.score);
     console.log("userResult.miss: " + userResult.miss);
     console.log("userResult.missPerc: " + userResult.missPerc);
     console.log("");
-        */
+     */    
 
     drawNote();
 }
@@ -124,5 +115,39 @@ function resetGame() {
 // happens at the end of play screen
 function showResults() {
     $("body").off("click keydown");
-    numClicks = 0; // or do this in reset game
+    numClicks = 0;
+
+    $("#results-container").fadeIn(500)
+    calcTotalScore();
+    $("#results").text(calcTotalScore)
+
 }
+
+function calcTotalScore() {
+    let totalScore = 0;
+    for (let i = 0; i < userInputArr.length; i++) {
+        totalScore += userInputArr[i].score;
+    }
+    return totalScore;
+}
+
+const ctx = $("#results-chart");
+Chart.defaults.color = '#000';
+new Chart(ctx, {
+    type: "bar",
+    data: {
+        labels: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20],
+        datasets: [{
+            label: "poitns",
+            data: [12, 19, 3, 5, 2, 3],
+            borderWidth: 1
+        }]
+    },
+    options: {
+        scales: {
+            y: {
+                beginAtZero: true
+            }
+        }
+    }
+});

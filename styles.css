@@ -204,3 +204,7 @@ body {
     font-size: 90px;
     margin: 0px;
 }
+
+#results {
+    background-color: red;
+}
