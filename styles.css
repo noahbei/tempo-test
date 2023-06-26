@@ -14,10 +14,9 @@ body {
 }
 
 .container {
-    margin: 0px 5rem;
+    margin: 0px auto; 
     text-align: center;
-    /* width: 50%;
-    margin: auto; */
+    width: 90%;
 }
 
 #title {
@@ -133,8 +132,8 @@ body {
     
 }
 
-/* remove margin for h2 when title goes on two lines */
-@media (max-width: 608px) {
+/* remove margin for h2 when title goes on two lines 608*/
+@media (max-width: 500px) {
     h2 {
         margin: 5px 0px;
     }
@@ -206,7 +205,7 @@ body {
 }
 
 #results {
-    background-color: red;
+    background-color: inherit;
 }
 
 #chart-container {
@@ -216,4 +215,25 @@ body {
     height:40vh;
     width:70vw;
     margin: 0 auto;
+}
+
+#retry-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #C4B0FF;
+    border-radius: 50px;
+    width: 150px;
+    height: 50px;
+    margin: 0px auto;
+    cursor: pointer;
+    font-size: 22px;
+}
+
+#retry-button:hover {
+    background-color: #ad95f5;
+}
+
+#retry-button > span {
+    margin-bottom: 3px;
 }
