@@ -208,3 +208,12 @@ body {
 #results {
     background-color: red;
 }
+
+#chart-container {
+    display: flex;
+    justify-content: center;
+    position: relative;
+    height:40vh;
+    width:70vw;
+    margin: 0 auto;
+}

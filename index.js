@@ -8,6 +8,7 @@ const maxPointsPerNote = 50;
 let timeSinceLastBeat = 0;
 let userInputArr = [];
 let numClicks = 0;
+let chartData = [];
 
 
 let sound = new Howl({
@@ -117,10 +118,14 @@ function showResults() {
     $("body").off("click keydown");
     numClicks = 0;
 
-    $("#results-container").fadeIn(500)
     calcTotalScore();
-    $("#results").text(calcTotalScore)
+    $("#results").text(calcTotalScore);
+    chartData = userInputArr.map((obj) => obj.score);
+    myChart.data.datasets[0].data = chartData;
+    myChart.update();   
 
+    $("#results-container").fadeIn(500)
+    
 }
 
 function calcTotalScore() {
@@ -131,15 +136,16 @@ function calcTotalScore() {
     return totalScore;
 }
 
-const ctx = $("#results-chart");
 Chart.defaults.color = '#000';
-new Chart(ctx, {
+const ctx = $("#results-chart");
+
+const myChart = new Chart(ctx, {
     type: "bar",
     data: {
         labels: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20],
         datasets: [{
-            label: "poitns",
-            data: [12, 19, 3, 5, 2, 3],
+            label: "points",
+            data: chartData,
             borderWidth: 1
         }]
     },
