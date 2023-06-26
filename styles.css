@@ -27,6 +27,15 @@ body {
     margin-bottom: 0px;
 }
 
+.small-title {
+    margin-top: 20px;
+    font-size: 70px !important;
+}
+
+.transition {
+    transition: all 0.5s ease;
+}
+
 #instructions {
     font-size: 25px;
     margin: 50px 0px;
@@ -158,11 +167,7 @@ body {
     display: none;
 }
 
-.small-title {
-    transition: all 0.5s ease;
-    margin-top: 20px;
-    font-size: 70px !important;
-}
+
 
 .disable-select {
     -webkit-user-select: none;  

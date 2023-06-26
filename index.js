@@ -50,7 +50,7 @@ $("#play").on("click", () => {
 })
 
 function clearStartPage() {
-    $("#title").addClass("small-title")
+    $("#title").addClass("transition").addClass("small-title");
     $("#start-container").fadeOut(350);
 }
 
@@ -116,8 +116,11 @@ function resetGame() {
     chartData = [];
 
     $("#results-container").fadeOut(200, () => {
-        $("#start-container").fadeIn(300);
+        $("#start-container").fadeIn(300, () => {
+            $("#title").removeClass("transition")
+        });
     });
+    $("#title").removeClass("small-title");
     sound.fade(0, vol * .01, 100);
 }
 $("#retry-button").on("click", resetGame)
