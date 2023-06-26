@@ -217,6 +217,14 @@ body {
     margin: 0 auto;
 }
 
+/* trying to make chart vertical
+@media (max-width: 720px) {
+    #chart-container {
+        height: 70vh;
+        width: 40vw;
+    }
+} */
+
 #retry-button {
     display: flex;
     justify-content: center;
@@ -225,7 +233,7 @@ body {
     border-radius: 50px;
     width: 150px;
     height: 50px;
-    margin: 0px auto;
+    margin: 20px auto;
     cursor: pointer;
     font-size: 22px;
 }

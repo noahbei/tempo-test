@@ -66,7 +66,7 @@ function handleClick() {
 
     console.log(numClicks);
     if (numClicks >= 4 && numClicks <= 8) {
-        $("#count").text(5 - numClicks + 4);
+        $("#count").show().text(5 - numClicks + 4);
     }
     else if (numClicks === 9) {
         $("#count").fadeOut(200);
@@ -110,8 +110,18 @@ function calcUserResults(timeSinceLastBeat, currentTime) {
 function resetGame() {
     // maybe need to delete deep for the userResult objects in array
     userInputArr = [];
-    
+    timeSinceLastBeat = 0;
+    userInputArr = [];
+    numClicks = 0;
+    chartData = [];
+
+    $("#results-container").fadeOut(200, () => {
+        $("#start-container").fadeIn(300);
+    });
+    sound.fade(0, vol * .01, 100);
 }
+$("#retry-button").on("click", resetGame)
+
 
 // happens at the end of play screen
 function showResults() {
@@ -136,9 +146,46 @@ function calcTotalScore() {
     return totalScore;
 }
 
-Chart.defaults.color = '#000';
-const ctx = $("#results-chart");
+function isScreenSmall() {
+    return $(window).width() <= 720;
+}
 
+/* trying to make chart vertical
+function updateChartType() {
+    myChart.options.indexAxis = isScreenSmall() ? "y" : "x";
+
+    if (myChart.options.indexAxis === "x") {
+        myChart.options.scales = {
+            x: {
+                beginAtZero: true,
+                max: 50
+            },
+            y: {
+                beginAtZero: true,
+                max: 20
+            }
+        };
+    } else {
+        myChart.options.scales = {
+            x: {
+                beginAtZero: true,
+                max: 20
+            },
+            y: {
+                beginAtZero: true,
+                max: 50
+            }
+        };
+    }
+
+    chart.update();
+}
+
+$(window).on('resize', updateChartType); */
+
+Chart.defaults.color = '#000';
+
+const ctx = $("#results-chart");
 const myChart = new Chart(ctx, {
     type: "bar",
     data: {
@@ -150,6 +197,7 @@ const myChart = new Chart(ctx, {
         }]
     },
     options: {
+        indexAxis: isScreenSmall() ? "y" : "x",
         scales: {
             y: {
                 beginAtZero: true
