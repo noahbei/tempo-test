@@ -30,8 +30,8 @@ function adjustTempo() {
 }
 
 //add event for chaning tempo and volume
-$("#volume-slider").change(adjustVol)
-$("#tempo-slider").change(adjustTempo)
+$("#volume-slider").on('input', adjustVol);
+$("#tempo-slider").on('input', adjustTempo);
 
 
 $("#play").on("click", () => {
@@ -44,6 +44,7 @@ $("#play").on("click", () => {
     }
     else {
         clearStartPage()
+        // this is made multiple times after retry, fix
         $("body").append("<h2 id='count' class='disable-select'></h2>");
         $("body").on("click keydown", handleClick);
     }
@@ -63,6 +64,9 @@ function handleClick() {
     if (numClicks >= 9 && numClicks <= 28)
         userInputArr.push(userResult);
     timeSinceLastBeat = currentTime;
+
+    if (numClicks !== 1 && numClicks !== 28)
+        drawNote();
 
     console.log(numClicks);
     if (numClicks >= 4 && numClicks <= 8) {
@@ -86,12 +90,17 @@ function handleClick() {
     console.log("userResult.missPerc: " + userResult.missPerc);
     console.log("");
      */    
-
-    drawNote();
+    
 }
 
 function drawNote() {
-
+    const note = $('<div class="music-note"></div>');
+    const noteImage = $('<img src="images/eighth-note.png" alt="Music Note" width="200" height="300">');
+    note.append(noteImage);
+    $('body').append(note);
+    setTimeout(function() {
+      note.remove();
+    }, 500);
 }
 
 function calcUserResults(timeSinceLastBeat, currentTime) {
@@ -125,8 +134,6 @@ function resetGame() {
 }
 $("#retry-button").on("click", resetGame)
 
-
-// happens at the end of play screen
 function showResults() {
     $("body").off("click keydown");
     numClicks = 0;
@@ -153,41 +160,7 @@ function isScreenSmall() {
     return $(window).width() <= 720;
 }
 
-/* trying to make chart vertical
-function updateChartType() {
-    myChart.options.indexAxis = isScreenSmall() ? "y" : "x";
-
-    if (myChart.options.indexAxis === "x") {
-        myChart.options.scales = {
-            x: {
-                beginAtZero: true,
-                max: 50
-            },
-            y: {
-                beginAtZero: true,
-                max: 20
-            }
-        };
-    } else {
-        myChart.options.scales = {
-            x: {
-                beginAtZero: true,
-                max: 20
-            },
-            y: {
-                beginAtZero: true,
-                max: 50
-            }
-        };
-    }
-
-    chart.update();
-}
-
-$(window).on('resize', updateChartType); */
-
 Chart.defaults.color = '#000';
-
 const ctx = $("#results-chart");
 const myChart = new Chart(ctx, {
     type: "bar",
@@ -196,6 +169,7 @@ const myChart = new Chart(ctx, {
         datasets: [{
             label: "points",
             data: chartData,
+            backgroundColor: "#C4B0FF",
             borderWidth: 1
         }]
     },
