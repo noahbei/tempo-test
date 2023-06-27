@@ -94,7 +94,7 @@ function handleClick() {
 }
 
 function drawNote() {
-    const note = $('<div class="music-note"></div>');
+    const note = $('<div class="music-note disable-select"></div>');
     const noteImage = $('<img src="images/eighth-note.png" alt="Music Note" width="200" height="300">');
     note.append(noteImage);
     $('body').append(note);
