@@ -14,10 +14,9 @@ body {
 }
 
 .container {
-    margin: 0px 5rem;
+    margin: 0px auto; 
     text-align: center;
-    /* width: 50%;
-    margin: auto; */
+    width: 90%;
 }
 
 #title {
@@ -26,6 +25,15 @@ body {
     color: rgb(31, 28, 34); /* darker color */
     /* temp for vertical spacing */
     margin-bottom: 0px;
+}
+
+.small-title {
+    margin-top: 20px;
+    font-size: 70px !important;
+}
+
+.transition {
+    transition: all 0.5s ease;
 }
 
 #instructions {
@@ -40,12 +48,6 @@ body {
     gap: 1rem;
     width: 60%;
     margin: auto;
-}
-
-/* media for control grid here */
-
-.tempo-container {
-    
 }
 
 .volume-container {
@@ -86,14 +88,6 @@ body {
     background-color: #ad95f5;
 }
 
-#tempo-slider {
-
-}
-
-#volume-slider {
-
-}
-
 #play {
     background-color: #C4B0FF;
     border-radius: 50%;
@@ -129,12 +123,10 @@ body {
         margin: auto;
         margin-top: 40px;
     }
-
-    
 }
 
-/* remove margin for h2 when title goes on two lines */
-@media (max-width: 608px) {
+/* remove margin for h2 when title goes on two lines*/
+@media (max-width: 499px) {
     h2 {
         margin: 5px 0px;
     }
@@ -159,12 +151,6 @@ body {
     display: none;
 }
 
-.small-title {
-    transition: all 0.5s ease;
-    margin-top: 20px;
-    font-size: 70px !important;
-}
-
 .disable-select {
     -webkit-user-select: none;  
     -moz-user-select: none;    
@@ -172,35 +158,72 @@ body {
     user-select: none;
 }
 
-/* definitely change this */
-.note-size {
-    width: 150px;
-}
-
-@media (max-width: 1000px) {
-    .note-size {
-        width: 120px;
-    }
-}
-
-@media (max-width: 600px) {
-    .note-size {
-        width: 100px;
-    }
-}
-
-@media (max-width: 400px) {
-    .note-size {
-        width: 75px;
-    }
-}
-
-.note {
-    position: relative;
-}
-
-
 #count {
     font-size: 90px;
     margin: 0px;
+}
+
+#results {
+    background-color: inherit;
+}
+
+#chart-container {
+    display: flex;
+    justify-content: center;
+    position: relative;
+    height:40vh;
+    width:70vw;
+    margin: 0 auto;
+}
+
+#retry-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #C4B0FF;
+    border-radius: 50px;
+    width: 150px;
+    height: 50px;
+    margin: 20px auto;
+    cursor: pointer;
+    font-size: 22px;
+}
+
+#retry-button:hover {
+    background-color: #ad95f5;
+}
+
+#retry-button > span {
+    margin-bottom: 3px;
+}
+
+#game-section {
+    position: relative;
+}
+
+.music-note {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    animation-name: pop;
+    animation-duration: 0.5s;
+    animation-timing-function: linear;
+    animation-fill-mode: forwards;
+    opacity: 0;
+    pointer-events: none;
+}
+
+@keyframes pop {
+0% {
+    transform: translate(-50%, -50%) scale(0);
+    opacity: 1;
+}
+50% {
+    transform: translate(-50%, -50%) scale(1.2);
+}
+100% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 0;
+}
 }

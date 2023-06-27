@@ -8,6 +8,7 @@ const maxPointsPerNote = 50;
 let timeSinceLastBeat = 0;
 let userInputArr = [];
 let numClicks = 0;
+let chartData = [];
 
 
 let sound = new Howl({
@@ -19,7 +20,7 @@ adjustVol();
 
 function adjustVol() {
     vol = $("#volume-slider")[0].value;
-    Howler.volume(vol * .01);
+    sound.volume(vol * .01);
 }
 
 function adjustTempo() {
@@ -29,57 +30,50 @@ function adjustTempo() {
 }
 
 //add event for chaning tempo and volume
-$("#volume-slider").change(adjustVol)
-$("#tempo-slider").change(adjustTempo)
+$("#volume-slider").on('input', adjustVol);
+$("#tempo-slider").on('input', adjustTempo);
 
 
 $("#play").on("click", () => {
-    //show play button
-    //maybe toggle and maybe make clicked a bool
     if (!playMusicClicked) {
         $(".bi-music-note-beamed").addClass("hidden");
         $(".bi-play-fill").removeClass("hidden");
-        //sound start
-        //maybe have function that does everytihng for reset here
+
         let sound1 = sound.play();
         playMusicClicked = true;
     }
     else {
         clearStartPage()
+        // this is made multiple times after retry, fix
         $("body").append("<h2 id='count' class='disable-select'></h2>");
-        
-        // add event on click that will handle everything for the click.s
-        //add this when we go to game screen, remove when we are done
         $("body").on("click keydown", handleClick);
-
-
-
-        // call function(s) to start the game
-        // animate the control grid going away
-        // animate title going to the top of the screen
     }
 })
 
 function clearStartPage() {
-    $("#title").addClass("small-title")
-    $(".rest-container").fadeOut(350);
+    $("#title").addClass("transition").addClass("small-title");
+    $("#start-container").fadeOut(350);
 }
 
 function handleClick() {
     numClicks++;
-    // if it is time for getting the user's input from the game from the game.
 
     let currentTime = window.performance.now();
     let userResult = calcUserResults(timeSinceLastBeat, currentTime);
-    userInputArr.push(userResult);
+    if (numClicks >= 9 && numClicks <= 28)
+        userInputArr.push(userResult);
     timeSinceLastBeat = currentTime;
+
+    if (numClicks !== 1 && numClicks !== 28)
+        drawNote();
 
     console.log(numClicks);
     if (numClicks >= 4 && numClicks <= 8) {
-        $("#count").text(5 - numClicks + 4);
+        $("#count").show().text(5 - numClicks + 4);
     }
     else if (numClicks === 9) {
         $("#count").fadeOut(200);
+        sound.fade(vol * .01, 0, 1000);
     }
     else if (numClicks >= 23 && numClicks <=27) {
         $("#count").fadeIn(200);
@@ -87,19 +81,25 @@ function handleClick() {
     }
     else if (numClicks === 28) {
         $("#count").fadeOut(200);
+        showResults();
     }
-    /* //  score debug
+    /*  //  score debug
     console.log("userResult.score: " + userResult.score);
     console.log("userResult.miss: " + userResult.miss);
     console.log("userResult.missPerc: " + userResult.missPerc);
     console.log("");
-        */
-
-    drawNote();
+     */    
+    
 }
 
 function drawNote() {
-
+    const note = $('<div class="music-note disable-select"></div>');
+    const noteImage = $('<img src="images/eighth-note.png" alt="Music Note" width="200" height="300">');
+    note.append(noteImage);
+    $('body').append(note);
+    setTimeout(function() {
+      note.remove();
+    }, 500);
 }
 
 function calcUserResults(timeSinceLastBeat, currentTime) {
@@ -108,7 +108,7 @@ function calcUserResults(timeSinceLastBeat, currentTime) {
     userResult.duration = currentTime - timeSinceLastBeat;
     userResult.miss = userResult.duration - tempo_ms;
     userResult.missPerc = (userResult.miss / tempo_ms) * 100;
-    // scoreFactor cant go below 0
+    // scoreFactor can't go below 0
     let scoreFactor = Math.max(0, 1 - Math.abs(userResult.missPerc) / 20);
 
     userResult.score = Math.round(scoreFactor * maxPointsPerNote);
@@ -118,11 +118,66 @@ function calcUserResults(timeSinceLastBeat, currentTime) {
 function resetGame() {
     // maybe need to delete deep for the userResult objects in array
     userInputArr = [];
+    timeSinceLastBeat = 0;
+    userInputArr = [];
+    numClicks = 0;
+    chartData = [];
+
+    $("#results-container").fadeOut(200, () => {
+        $("#start-container").fadeIn(300, () => {
+            $("#title").removeClass("transition")
+        });
+    });
+    $("#title").removeClass("small-title");
+    sound.fade(0, vol * .01, 100);
+}
+$("#retry-button").on("click", resetGame)
+
+function showResults() {
+    $("body").off("click keydown");
+    numClicks = 0;
+
+    calcTotalScore();
+    $("#results").text(calcTotalScore);
+    chartData = userInputArr.map((obj) => obj.score);
+    myChart.data.datasets[0].data = chartData;
+    myChart.update();   
+
+    $("#results-container").fadeIn(500)
     
 }
 
-// happens at the end of play screen
-function showResults() {
-    $("body").off("click keydown");
-    numClicks = 0; // or do this in reset game
+function calcTotalScore() {
+    let totalScore = 0;
+    for (let i = 0; i < userInputArr.length; i++) {
+        totalScore += userInputArr[i].score;
+    }
+    return totalScore;
 }
+
+function isScreenSmall() {
+    return $(window).width() <= 720;
+}
+
+Chart.defaults.color = '#000';
+const ctx = $("#results-chart");
+const myChart = new Chart(ctx, {
+    type: "bar",
+    data: {
+        labels: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20],
+        datasets: [{
+            label: "points",
+            data: chartData,
+            backgroundColor: "#C4B0FF",
+            borderWidth: 1
+        }]
+    },
+    options: {
+        indexAxis: isScreenSmall() ? "y" : "x",
+        scales: {
+            y: {
+                beginAtZero: true
+            }
+        }
+    }
+});

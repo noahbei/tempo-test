@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Tempo Test</title>
-    <link rel="shortcut icon" type="image/png" href="./images/music-note-beamed.svg" />
+    <link rel="icon" type="image/svg+xml" href="./images/music-note-beamed.svg" />
     <link rel="stylesheet" href="styles.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -14,7 +14,7 @@
     <div class="container">
       <h1 id="title" class="disable-select">Tempo Test</h1>
     </div>
-    <div class="container rest-container">
+    <div id="start-container" class="container">
       <p id="instructions">Can you maintain tempo when the beat fades away?</p>
       <div class="controls-grid">
         <div class="tempo-container">
@@ -37,9 +37,16 @@
         </div>
       </div>
     </div>
-
+    <div id="results-container" class='container hidden'>
+      <h2>You scored <span id='results'></span> points</h2>
+      <div id="chart-container">
+        <canvas id="results-chart"></canvas>
+      </div>
+      <div id="retry-button" class="disable-select"><span>Retry</span></div>
+    </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.3/howler.min.js" integrity="sha512-6+YN/9o9BWrk6wSfGxQGpt3EUK6XeHi6yeHV+TYD2GR0Sj/cggRpXr1BrAQf0as6XslxomMUxXp2vIl+fv0QRA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.3.0/chart.umd.min.js" integrity="sha512-TJ7U6JRJx5IpyvvO9atNnBzwJIoZDaQnQhb0Wmw32Rj5BQHAmJG16WzaJbDns2Wk5VG6gMt4MytZApZG47rCdg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>    
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
     <script src="index.js" charset="UTF-8"></script>
   </body>
