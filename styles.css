@@ -50,12 +50,6 @@ body {
     margin: auto;
 }
 
-/* media for control grid here */
-
-.tempo-container {
-    
-}
-
 .volume-container {
     grid-row-start: 2;
 }
@@ -94,14 +88,6 @@ body {
     background-color: #ad95f5;
 }
 
-#tempo-slider {
-
-}
-
-#volume-slider {
-
-}
-
 #play {
     background-color: #C4B0FF;
     border-radius: 50%;
@@ -137,12 +123,10 @@ body {
         margin: auto;
         margin-top: 40px;
     }
-
-    
 }
 
-/* remove margin for h2 when title goes on two lines 608*/
-@media (max-width: 500px) {
+/* remove margin for h2 when title goes on two lines*/
+@media (max-width: 499px) {
     h2 {
         margin: 5px 0px;
     }
@@ -167,42 +151,12 @@ body {
     display: none;
 }
 
-
-
 .disable-select {
     -webkit-user-select: none;  
     -moz-user-select: none;    
     -ms-user-select: none;      
     user-select: none;
 }
-
-/* definitely change this */
-.note-size {
-    width: 150px;
-}
-
-@media (max-width: 1000px) {
-    .note-size {
-        width: 120px;
-    }
-}
-
-@media (max-width: 600px) {
-    .note-size {
-        width: 100px;
-    }
-}
-
-@media (max-width: 400px) {
-    .note-size {
-        width: 75px;
-    }
-}
-
-.note {
-    position: relative;
-}
-
 
 #count {
     font-size: 90px;
@@ -221,14 +175,6 @@ body {
     width:70vw;
     margin: 0 auto;
 }
-
-/* trying to make chart vertical
-@media (max-width: 720px) {
-    #chart-container {
-        height: 70vh;
-        width: 40vw;
-    }
-} */
 
 #retry-button {
     display: flex;
@@ -256,16 +202,16 @@ body {
 }
 
 .music-note {
-position: absolute;
-top: 50%;
-left: 50%;
-transform: translate(-50%, -50%);
-animation-name: pop;
-animation-duration: 0.5s;
-animation-timing-function: linear;
-animation-fill-mode: forwards;
-opacity: 0;
-pointer-events: none;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    animation-name: pop;
+    animation-duration: 0.5s;
+    animation-timing-function: linear;
+    animation-fill-mode: forwards;
+    opacity: 0;
+    pointer-events: none;
 }
 
 @keyframes pop {

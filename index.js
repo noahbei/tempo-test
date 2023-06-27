@@ -57,7 +57,6 @@ function clearStartPage() {
 
 function handleClick() {
     numClicks++;
-    // if it is time for getting the user's input from the game from the game.
 
     let currentTime = window.performance.now();
     let userResult = calcUserResults(timeSinceLastBeat, currentTime);
@@ -109,7 +108,7 @@ function calcUserResults(timeSinceLastBeat, currentTime) {
     userResult.duration = currentTime - timeSinceLastBeat;
     userResult.miss = userResult.duration - tempo_ms;
     userResult.missPerc = (userResult.miss / tempo_ms) * 100;
-    // scoreFactor cant go below 0
+    // scoreFactor can't go below 0
     let scoreFactor = Math.max(0, 1 - Math.abs(userResult.missPerc) / 20);
 
     userResult.score = Math.round(scoreFactor * maxPointsPerNote);
