@@ -67,7 +67,6 @@ function handleClick() {
     if (numClicks !== 1 && numClicks !== 28)
         drawNote();
 
-    console.log(numClicks);
     if (numClicks >= 4 && numClicks <= 8) {
         $("#count").show().text(5 - numClicks + 4);
     }
@@ -177,7 +176,7 @@ $(window).on("resize", () => {
 Chart.defaults.color = '#000';
 const ctx = $("#results-chart");
 const myChart = new Chart(ctx, {
-     type: "bar",
+    type: "bar",
     data: {
         labels: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20],
         datasets: [{
