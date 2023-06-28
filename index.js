@@ -159,10 +159,25 @@ function isScreenSmall() {
     return $(window).width() <= 720;
 }
 
+let initial = isScreenSmall()
+$(window).on("resize", () => {
+    //update chart when it switches screen modes
+    if (initial !== isScreenSmall()) {
+        myChart.options.maintainAspectRatio = !isScreenSmall();
+        if (!isScreenSmall()) myChart.options.aspectRatio = 2 / 1;
+        /*
+        does not work with updating properly
+        myChart.options.indexAxis = isScreenSmall() ? "y" : "x";
+        */
+        myChart.update();
+        initial = isScreenSmall();
+    }
+})
+
 Chart.defaults.color = '#000';
 const ctx = $("#results-chart");
 const myChart = new Chart(ctx, {
-    type: "bar",
+     type: "bar",
     data: {
         labels: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20],
         datasets: [{
