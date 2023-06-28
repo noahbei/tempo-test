@@ -173,6 +173,7 @@ const myChart = new Chart(ctx, {
         }]
     },
     options: {
+        maintainAspectRatio: !isScreenSmall(),
         indexAxis: isScreenSmall() ? "y" : "x",
         scales: {
             y: {
