@@ -205,12 +205,9 @@ let i = 0;
 $(window).on("keydown", (event) => { 
     const keycode = event.which;
     i = (keycode === sequence[i]) ? i + 1 : 0;
-    console.log(keycode, i)
     if (i === sequence.length) {
         i = 0;
-
         const isPlaying = (sound.playing() && numClicks < 8) ? true : false;
-        console.log(isPlaying)
         
         if (isPlaying) sound.stop();
         soundType = (soundType === "beat") ? "fart" : "beat";
