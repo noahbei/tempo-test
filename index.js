@@ -9,10 +9,11 @@ let timeSinceLastBeat = 0;
 let userInputArr = [];
 let numClicks = 0;
 let chartData = [];
+let soundType = "beat";
 
 
-let sound = new Howl({
-    src: ['audio/beat.mp3'],
+sound = new Howl({
+    src: [`audio/${soundType}.mp3`],
     loop: true
 });
 adjustTempo();
@@ -128,6 +129,7 @@ function resetGame() {
         });
     });
     $("#title").removeClass("small-title");
+    if (!sound.playing()) sound.play()
     sound.fade(0, vol * .01, 100);
 }
 $("#retry-button").on("click", resetGame)
@@ -196,3 +198,29 @@ const myChart = new Chart(ctx, {
         }
     }
 });
+
+//easter egg ;)
+const sequence = [70, 65, 82, 84, 13]
+let i = 0;
+$(window).on("keydown", (event) => { 
+    const keycode = event.which;
+    i = (keycode === sequence[i]) ? i + 1 : 0;
+    console.log(keycode, i)
+    if (i === sequence.length) {
+        i = 0;
+
+        const isPlaying = (sound.playing() && numClicks < 8) ? true : false;
+        console.log(isPlaying)
+        
+        if (isPlaying) sound.stop();
+        soundType = (soundType === "beat") ? "fart" : "beat";
+        sound = new Howl({
+            src: [`audio/${soundType}.mp3`],
+            loop: true
+        });
+        if (isPlaying) sound.play();
+
+        adjustTempo();
+        adjustVol();
+    }
+})
