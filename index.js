@@ -12,7 +12,7 @@ let chartData = [];
 
 
 let sound = new Howl({
-    src: ['audio/fart.mp3'],
+    src: ['audio/beat.mp3'],
     loop: true
 });
 adjustTempo();
